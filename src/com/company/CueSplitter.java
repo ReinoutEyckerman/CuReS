@@ -1,26 +1,32 @@
 package com.company;
 
+import org.apache.commons.io.FilenameUtils;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by reinout on 11/9/16.
  */
 public class CueSplitter {
     AlbumTags metadata=new AlbumTags();
-    public void parseFile()throws Exception{
+    private String cuePath=null;
+    public CueSplitter(String cuePath){
+        this.cuePath=cuePath;
+    }
+    public AlbumTags parseFile()throws Exception{
         List<String> records = new ArrayList<String>();
         String line=null;
-        BufferedReader bufferedReader = new BufferedReader(new FileReader("/home/reinout/repos/CD1/postal.cue"));
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(cuePath));
         while ((line = bufferedReader.readLine()) != null)
         {
             records.add(line);
         }
         ProcessCue(records);
+        return metadata;
     }
     private void ProcessCue(List<String> records){
         for(int i=0; i<records.size(); i++) {
@@ -33,9 +39,12 @@ public class CueSplitter {
             }
             switch (cmd.toUpperCase()) {
                 case "FILE":
-                    String location=s.split(" ",2)[1];
-                    location=location.substring(0,location.lastIndexOf(" "));
-                    metadata.FileLocation=location;
+                    Pattern p= Pattern.compile("\"(.+)\"");
+                    Matcher matcher=p.matcher(s);
+                    if(!matcher.find())
+                        throw new IllegalArgumentException("No filename");
+                    String location=matcher.group(1);
+                    metadata.FileLocation=FilenameUtils.getFullPath(cuePath)+location;
                     i++;
                     i += fetchTrackMetadata(i, records);
                     break;
@@ -77,19 +86,18 @@ public class CueSplitter {
     private int fetchTrackMetadata(int state, List<String> records) {
         String s = records.get(state).trim();
         TrackTags tags=new TrackTags();
-        int count = 0;
+        int count = 1;
         boolean newFile=false;
         String z=s.split(" ")[0].toUpperCase();
-        if(z=="TRACK")
+        if(!z.equals("TRACK"))
             throw new IllegalArgumentException(" AYY LMAO WAT THE FOCK YOU SAID ABOUT ME YOU LITTLE SHIT");
 
         while(!newFile&&count + state < records.size()){
-            count++;
             s=records.get(state+count).trim();
             switch (s.split(" ")[0].toUpperCase()) {
                 case "INDEX":
-                    if(s.split(" ")[1]=="01")
-                        tags.CutPoint=s.split(" ")[2];
+                    if(s.split(" ")[1].equals("01"))
+                        tags.SetCutPoint(s.split(" ")[2]);
                     else System.err.println("Error in index at line "+ count+state);
                     break;
                 case "TITLE":
@@ -110,10 +118,12 @@ public class CueSplitter {
                     break;
                 case "ISRC":
                     tags.ISRC=s.split(" ", 2)[1];
+                    break;
                 default:
                     System.err.println("Unknown metadata " + s.split(" ")[1]);
                     break;
             }
+            count++;
         }
         return count;
     }

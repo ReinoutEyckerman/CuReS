@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -8,22 +9,10 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-        /*try {
-            FlacCodec decoder = new FlacCodec();
-            decoder.decode("/home/reinout/repos/CuReS/beware.flac", "/home/reinout/repos/CuReS/beware.wav");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
-        CueSplitter splitter=new CueSplitter();
-        try {
-            splitter.parseFile();
-        }catch(Exception e){
-            System.err.println("Could not parse file. "+ e);
-            e.printStackTrace();
-        }
-        // write your code here
+        new File(System.getProperty("user.dir")+"/tmp").mkdirs();
+        Processor processor=new Processor();
+        processor.Process("/home/reinout/repos/CD1/postal.cue");
+        /* write your code here
         File file=new File("/home/reinout/repos/CuReS/sooth.mp3");
         AudioMetadata meta=new IDv3();
         meta.setFile(file);
@@ -32,5 +21,6 @@ public class Main {
             System.out.println(entry.getKey()+", " +entry.getValue());
 
         }
+        */
     }
 }

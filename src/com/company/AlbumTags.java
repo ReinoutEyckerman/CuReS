@@ -1,7 +1,5 @@
 package com.company;
 
-import sun.misc.Perf;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,5 +40,6 @@ public class AlbumTags {
             Catalog=Catalog.replaceAll("^\"+", "").replaceAll("\"+$", "");
         if(FileLocation!=null)
             FileLocation=FileLocation.replaceAll("^\"+", "").replaceAll("\"+$", "");
+        tracks.forEach(TrackTags::Clean);
     }
 }
