@@ -1,9 +1,6 @@
 package com.company;
 
 import org.apache.commons.io.FilenameUtils;
-import sun.misc.IOUtils;
-import sun.nio.ch.IOUtil;
-
 import javax.sound.sampled.*;
 import java.io.*;
 
@@ -17,36 +14,28 @@ public class WavSplitter {
             AudioInputStream stream = AudioSystem.getAudioInputStream(in);
             AudioFileFormat format= AudioSystem.getAudioFileFormat(in);
             float samplerate=format.getFormat().getSampleRate();
+            float framerate=format.getFormat().getFrameRate();
             int samplesize=format.getFormat().getSampleSizeInBits()/8;
             int channels=format.getFormat().getChannels();
             System.out.println("Samplerate: " +samplerate+", Samplesize: "+samplesize);
             System.out.println(samplesize*samplerate*30);
-
+            AudioInputStream trackstream=null;
+            long prevTrackLength=0;
             for(int i=0; i<metadata.tracks.size(); i++) {
                 TrackTags currentTrack=metadata.tracks.get(i);
-                File out = new File(FilenameUtils.getFullPath(metadata.FileLocation)+currentTrack.Title+".wav");
+                File out = new File(System.getProperty("user.dir")+"/tmp/"+currentTrack.Title+".wav");
 
-                int duration=0;
+                float duration=0;
                 if(i==metadata.tracks.size()-1)
                     duration=stream.available();
                 else duration=metadata.tracks.get(i+1).CutPoint-metadata.tracks.get(i).CutPoint;
 
-                int bytesToRead=(int)(samplesize * samplerate * duration * channels);
-                int maxBufferSize=8*1024;
-                if(bytesToRead>maxBufferSize)
-                {
-                    int numReads=bytesToRead/maxBufferSize;
-                    int numRemainingRead=bytesToRead%maxBufferSize;
-                    for(int j=0; j<numReads; j++){
-                        writeOut(maxBufferSize, stream, out);
-                    }
-                    if(numRemainingRead>0){
-                        writeOut(numRemainingRead,stream,out);
-                    }
+                long bytesToRead=(long)(/*samplesize * */framerate * duration);
 
-                }else{
-                    writeOut(bytesToRead, stream,out);
-                }
+                stream.skip(prevTrackLength);
+                prevTrackLength+=duration;
+                trackstream=new AudioInputStream(stream, format.getFormat(),bytesToRead);
+                AudioSystem.write(trackstream, AudioFileFormat.Type.WAVE,out);
             }
 
         }catch(Exception e){

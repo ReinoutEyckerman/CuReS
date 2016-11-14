@@ -7,14 +7,14 @@ public class TrackTags {
     public String Title=null;
     public String Performer=null;
     public String Songwriter=null;
-    public int CutPoint=0;
+    public float CutPoint=0;
     public String ISRC=null;
     public void SetCutPoint(String s){
         s = s.replaceAll("^\"+", "").replaceAll("\"+$", "");
         String[] splitTime=s.split(":");
         if(splitTime[2]!=null&&splitTime[2].length()<3)
             splitTime[2]=splitTime[2].concat("0");
-        CutPoint=Integer.parseInt(splitTime[0])*60000+Integer.parseInt(splitTime[1])*1000+Integer.parseInt(splitTime[2]);
+        CutPoint=Float.parseFloat(splitTime[0])*60+Float.parseFloat(splitTime[1])+Float.parseFloat(splitTime[2])/1000;
 
     }
     public void Clean() {
