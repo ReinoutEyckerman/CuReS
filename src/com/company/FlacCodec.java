@@ -4,6 +4,9 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import net.sourceforge.javaflacencoder.FLACEncoder;
+import net.sourceforge.javaflacencoder.FLACOutputStream;
+import net.sourceforge.javaflacencoder.FLAC_FileEncoder;
 import org.apache.commons.io.FilenameUtils;
 import org.jflac.PCMProcessor;
 import org.jflac.FLACDecoder;
@@ -18,9 +21,6 @@ import org.jflac.util.WavWriter;
 public class FlacCodec implements PCMProcessor {
     private WavWriter wav;
 
-    public void encode(){
-
-    }
     /**
      * Decode a FLAC file to a WAV file.
      * @param inFileName    The input FLAC file name
@@ -54,7 +54,21 @@ public class FlacCodec implements PCMProcessor {
             }
         }
     }
-
+    public void encode(String inFileName) throws IOException{
+        File input=new File(inFileName);
+        OutputStream os=null;
+        String tmpFolder=System.getProperty("user.dir")+"/tmp";
+        String tmpOut=FilenameUtils.removeExtension(FilenameUtils.getName(inFileName))+".flac";
+        File output=new File(tmpFolder+"/"+tmpOut);
+        try{
+           // os=new FLACOutputStream(tmpFolder+"/"+tmpOut);
+            //FLACEncoder encoder=new FLACEncoder();
+            FLAC_FileEncoder encoder=new FLAC_FileEncoder();
+            encoder.encode(input,output);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
     /**
      * Process the StreamInfo block.
      * @param info the StreamInfo block
