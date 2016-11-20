@@ -17,9 +17,13 @@ public class Processor {
             metadata=cueSplitter.parseFile();
             codec.decode(metadata.FileLocation);
             wavSplitter.Split(metadata);
+            Vorbis tagger=new Vorbis();
             for(int i=0; i<metadata.tracks.size(); i++){
-                codec.encode(System.getProperty("user.dir")+"/tmp/"+metadata.tracks.get(i).Title+".wav");
+                String path=System.getProperty("user.dir")+"/tmp/"+metadata.tracks.get(i).Title;
+                codec.encode(path+".wav");
+                tagger.WriteTagToFile(path+".flac",metadata,i);
             }
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {

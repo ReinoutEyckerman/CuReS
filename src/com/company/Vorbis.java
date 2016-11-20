@@ -4,10 +4,12 @@ import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
 import org.jaudiotagger.audio.AudioHeader;
 import org.jaudiotagger.tag.FieldKey;
+import org.jaudiotagger.tag.Tag;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentFieldKey;
 import org.jaudiotagger.tag.vorbiscomment.VorbisCommentTag;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,16 +43,27 @@ public class Vorbis implements AudioMetadata {
             tag = (VorbisCommentTag)f.getTag();
             AudioHeader header = f.getAudioHeader();
         }catch(Exception e){
-           System.out.println("Exception " + e + "found at audio metadata loading");
+            System.out.println("Exception " + e + "found at audio metadata loading");
             return false;
         }
         return true;
     }
+    public void WriteTagToFile(String fileLocation, AlbumTags metadata, int tracknr){
+        try {
+            TrackTags track=metadata.tracks.get(tracknr);
+            AudioFile f = AudioFileIO.read(new File(fileLocation));
+            Tag tag = f.getTag();
+            tag.setField(FieldKey.ARTIST, track.Performer);
+            tag.setField(FieldKey.TITLE, track.Title );
+            tag.setField(FieldKey.ALBUM, metadata.Title);
+            tag.setField(FieldKey.GENRE, metadata.Genre);
+            f.commit();
+        }catch(Exception e){
 
+        }
+    }
     @Override
     public void setMetadata(FieldKey key, String value) {
 
     }
-
-
 }
