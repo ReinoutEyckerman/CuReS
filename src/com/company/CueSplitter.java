@@ -2,8 +2,7 @@ package com.company;
 
 import org.apache.commons.io.FilenameUtils;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,19 +12,26 @@ import java.util.regex.Pattern;
  */
 public class CueSplitter {
     AlbumTags metadata=new AlbumTags();
-    private String cuePath=null;
-    public CueSplitter(String cuePath){
-        this.cuePath=cuePath;
+    private File cueFile=null;
+    public CueSplitter(File cueFile){
+        this.cueFile=cueFile;
     }
-    public AlbumTags parseFile()throws Exception{
-        List<String> records = new ArrayList<String>();
-        String line=null;
-        BufferedReader bufferedReader = new BufferedReader(new FileReader(cuePath));
-        while ((line = bufferedReader.readLine()) != null)
-        {
-            records.add(line);
+    public AlbumTags parseFile(){
+        try {
+            List<String> records = new ArrayList<String>();
+            String line=null;
+            BufferedReader bufferedReader = null;
+            bufferedReader = new BufferedReader(new FileReader(cueFile));
+            while ((line = bufferedReader.readLine()) != null)
+            {
+                records.add(line);
+            }
+            ProcessCue(records);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        ProcessCue(records);
         return metadata;
     }
     private void ProcessCue(List<String> records){
@@ -44,7 +50,7 @@ public class CueSplitter {
                     if(!matcher.find())
                         throw new IllegalArgumentException("No filename");
                     String location=matcher.group(1);
-                    metadata.FileLocation=FilenameUtils.getFullPath(cuePath)+location;
+                    metadata.FileLocation=FilenameUtils.getFullPath(cueFile.getAbsolutePath())+location;
                     i++;
                     i += fetchTrackMetadata(i, records);
                     break;

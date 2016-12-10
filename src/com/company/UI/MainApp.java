@@ -1,13 +1,16 @@
 package com.company.UI;
 
+import com.company.UI.menu.MenuController;
+import com.company.UI.model.DataModel;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 
 import static javafx.application.Application.launch;
@@ -20,12 +23,8 @@ public class MainApp extends Application{
         launch(args);
     }
 
-        public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 
     private Stage primaryStage;
-    private BorderPane rootLayout;
 
     /**
      * The data as an observable list of Persons.
@@ -45,12 +44,13 @@ public class MainApp extends Application{
 
     @Override
     public void start(Stage primaryStage) {
+        new File(System.getProperty("user.dir")+"/tmp").mkdirs();
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("AddressApp");
-
+        this.primaryStage.setTitle("CuReS");
+        this.primaryStage.setHeight(400);
+        this.primaryStage.setWidth(600);
+        this.primaryStage.setResizable(false);
         initRootLayout();
-
-        showDisplay();
     }
 
     /**
@@ -59,41 +59,33 @@ public class MainApp extends Application{
     public void initRootLayout() {
         try {
             // Load root layout from fxml file.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("RootLayout.fxml"));
-            rootLayout = (BorderPane) loader.load();
+            BorderPane root= new BorderPane();
+            FXMLLoader menuloader = new FXMLLoader(getClass().getResource("menu/menu.fxml"));
+            root.setTop(menuloader.load());
+
+            MenuController menuController=menuloader.getController();
+            Image image=new Image(getClass().getResourceAsStream("menu/icons/file.png"), 25,25, false,false);
+            menuController.openFile.setGraphic(new ImageView(image));
+
+            image=new Image(getClass().getResourceAsStream("menu/icons/delete.png"), 25,25, false,false);
+            menuController.removeFile.setGraphic(new ImageView(image));
+            image=new Image(getClass().getResourceAsStream("menu/icons/start.png"), 25,25, false,false);
+            menuController.start.setGraphic(new ImageView(image));
+
+            FXMLLoader rootloader=new FXMLLoader(getClass().getResource("Overview.fxml"));
+            root.setCenter(rootloader.load());
+            OverviewController overviewController=rootloader.getController();
+            menuController.addListView(overviewController.listView, overviewController.controllers);
+            DataModel model=new DataModel();
+            overviewController.initModel(model);
+            menuController.initModel(model);
 
             // Show the scene containing the root layout.
-            Scene scene = new Scene(rootLayout);
+            Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Shows the person overview inside the root layout.
-     */
-    public void showDisplay() {
-        try {
-            // Load person overview.
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("Overview.fxml"));
-            AnchorPane overview= (AnchorPane) loader.load();
-
-            // Set person overview into the center of root layout.
-            rootLayout.setCenter(overview);
-
-            // Give the controller access to the main app.
-            OverviewController controller = loader.getController();
-            controller.setMainApp(this);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
 }

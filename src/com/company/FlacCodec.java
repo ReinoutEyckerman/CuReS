@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import javafx.scene.control.ProgressBar;
 import net.sourceforge.javaflacencoder.FLACEncoder;
 import net.sourceforge.javaflacencoder.FLACOutputStream;
 import net.sourceforge.javaflacencoder.FLAC_FileEncoder;
