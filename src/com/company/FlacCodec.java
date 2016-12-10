@@ -62,6 +62,7 @@ public class FlacCodec implements PCMProcessor {
         String tmpOut=FilenameUtils.removeExtension(FilenameUtils.getName(inFileName))+".flac";
         File output=new File(tmpFolder+"/"+tmpOut);
         try{
+
            // os=new FLACOutputStream(tmpFolder+"/"+tmpOut);
             //FLACEncoder encoder=new FLACEncoder();
             FLAC_FileEncoder encoder=new FLAC_FileEncoder();
