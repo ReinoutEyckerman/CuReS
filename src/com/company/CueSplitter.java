@@ -1,5 +1,7 @@
 package com.company;
 
+//import org.apache.commons.io.FilenameUtils;
+
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.BufferedReader;
@@ -44,7 +46,7 @@ public class CueSplitter {
                     if(!matcher.find())
                         throw new IllegalArgumentException("No filename");
                     String location=matcher.group(1);
-                    metadata.FileLocation=FilenameUtils.getFullPath(cuePath)+location;
+                    metadata.FileLocation= FilenameUtils.getFullPath(cuePath)+location;
                     i++;
                     i += fetchTrackMetadata(i, records);
                     break;

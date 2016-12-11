@@ -1,19 +1,24 @@
 package com.company;
 
 
+import org.json.simple.JSONObject;
+import org.musicbrainz.controller.Artist;
+import org.musicbrainz.controller.Controller;
+import org.musicbrainz.model.searchresult.ArtistResultWs2;
+
+import javax.naming.directory.SearchResult;
+import java.util.List;
+
 /**
  * Created by reinout on 10/26/16.
  */
 public class MusicBrainzAPI {
-   public static void GetMetadata(String[] args){
-     /* JSONObject obj = new JSONObject();
+   public void GetMetadata(){
+       Artist artist=new Artist();
+       artist.search("Exodus");
+       List<ArtistResultWs2> results;
+        results = artist.getFullSearchResultList();
 
-      obj.put("name", "foo");
-      obj.put("num", new Integer(100));
-      obj.put("balance", new Double(1000.21));
-      obj.put("is_vip", new Boolean(true));
-
-      System.out.print(obj);
-      */
    }
+
 }

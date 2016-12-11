@@ -5,6 +5,8 @@ import java.io.File;
 public class Main {
 
     public static void main(String[] args) {
+        MusicBrainzAPI api=new MusicBrainzAPI();
+        api.GetMetadata();
         new File(System.getProperty("user.dir") + "/tmp").mkdirs();
         Processor processor = new Processor();
         processor.Process("/home/reinout/repos/CD1/postal.cue");
