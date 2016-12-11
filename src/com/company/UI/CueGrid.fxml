@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.UI.CueGridController">
+   <children>
+      <Pane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="238.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text fx:id="artist" layoutX="276.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <Text fx:id="album" layoutX="276.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+            <ListView fx:id="trackList" focusTraversable="false" layoutX="140.0" layoutY="138.0" pickOnBounds="false" prefHeight="100.0" prefWidth="300.0" />
+            <ProgressBar fx:id="progress" layoutX="190.0" layoutY="109.0" prefWidth="200.0" progress="0.0" />
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
