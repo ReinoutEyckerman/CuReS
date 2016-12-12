@@ -10,14 +10,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,65 +32,53 @@ public class OverviewController {
     @FXML
     public ListView<Pane> listView;
     public List<CueGridController> controllers=new ArrayList<>();
-    private ObservableList<AlbumTags> albumView;
-    @FXML
-    private VBox AlbumVBox;
-    private MainApp mainApp;
+    public Tab cueRepairTab;
+    public TextArea cuesheet;
 
-    /**
-     * The constructor.
-     * The constructor is called before the initialize() method.
-     */
-    public OverviewController() {
-    }
 
-    /**
-     * Is called by the main application to give a reference back to itself.
-     *
-     * @param mainApp
-     */
-    public void setMainApp(MainApp mainApp) {
-        this.mainApp = mainApp;
-
-    }
     private DataModel model;
     public void initModel(DataModel model){
         if (this.model != null) {
             throw new IllegalStateException("Model can only be initialized once");
         }
         this.model=model;
+        model.cueFiles.addListener(new ListChangeListener<File>() {
+            @Override
+            public void onChanged(Change<? extends File> c) {
+                while(c.next()){
+                    if(!c.wasUpdated()){
+                        for(File f:c.getAddedSubList()){
+                            //TODO Hmn?
+                        }
+                    }
+                }
+            }
+        });
         model.getTrackList().addListener(new ListChangeListener<AlbumTags>() {
             @Override
             public void onChanged(Change<? extends AlbumTags> change) {
                 while(change.next())
-                    if (change.wasUpdated()) {
-                        for (AlbumTags album : change.getList()) {
-                            updateAlbum(album);
-                        }
-                    } else {
+                    if (!change.wasUpdated()) {
                         for (AlbumTags addedAlbum : change.getAddedSubList()) {
                             addAlbum(addedAlbum);
                         }
                     }
             }
         });
+        cueRepairTab.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if(newValue){
+//TODO Vragen hoe te verbinden met menucontroller
+                }
+            }
+        });
     }
 
-
-    private void updateAlbum(AlbumTags album){
-        FXMLLoader paneLoader = new FXMLLoader(getClass().getResource("CueGrid.fxml"));
-        try {
-            Pane p=paneLoader.load();
-            CueGridController controller=paneLoader.getController();
-            //controller.artist.setText();
-            listView.getItems().add(p);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
     private void addAlbum(AlbumTags album){
         FXMLLoader paneLoader = new FXMLLoader(getClass().getResource("CueGrid.fxml"));
         try {
+            //cuesheet.setText();
             Pane p=paneLoader.load();
             CueGridController controller=paneLoader.getController();
             controller.artist.setText(album.Performer);

@@ -27,13 +27,20 @@ public class DataModel {
 
     public ObservableList<AlbumTags> getTrackList() {return fileList;}
 
-    public List<File> cueFiles=new ArrayList<>();
+    public ObservableList<File> cueFiles=FXCollections.observableArrayList();
+    private File outPath=null;
 
+    public void setOutPath(File outPath){
+        this.outPath=outPath;
+    }
     public void convertCue(List<CueGridController> controllers){
         for(int i=0; i<cueFiles.size(); i++){
-            Thread t=new Thread(new Processor(cueFiles.get(i), controllers.get(i).progress));
+            Processor p= new Processor(cueFiles.get(i), controllers.get(i).progress);
+            p.SetOutpath(outPath);
+            Thread t=new Thread(p);
             t.start();
         }
+        //TODO How to put it after thread with some non blocking join?
         Alert alert=new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Finished");
         alert.setContentText("Your audio files have been split.");

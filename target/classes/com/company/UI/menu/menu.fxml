@@ -15,6 +15,7 @@
             <MenuBar fx:id="menuBar">
                 <Menu text="File">
                     <MenuItem onAction="#loadcue" text="Load Cue" />
+                    <MenuItem onAction="#setOutpath" text="Set Output Path" />
                     <MenuItem onAction="#save" text="Save" />
                     <SeparatorMenuItem />
                     <MenuItem onAction="#exit" text="Quit" />
@@ -32,6 +33,7 @@
                     <buttons>
                         <Button fx:id="openFile" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#loadcue" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT" />
                         <Button fx:id="removeFile" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#removeEntry" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT" />
+                        <Button fx:id="outpath" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#setOutpath" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT" />
                         <Button fx:id="start" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#convertcue" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT" />
                     </buttons>
                 </ButtonBar>

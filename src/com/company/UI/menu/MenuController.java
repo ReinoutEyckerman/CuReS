@@ -10,11 +10,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 public class MenuController {
 
     public Button start;
+    public Button outpath;
     private DataModel model ;
     public Button openFile;
     public Button removeFile;
@@ -63,5 +65,12 @@ public class MenuController {
         listview.getItems().remove(i);
         model.removeEntry(i);
 
+    }
+
+    public void setOutpath(ActionEvent actionEvent) {
+        DirectoryChooser dchooser=new DirectoryChooser();
+        File file=dchooser.showDialog(menuBar.getScene().getWindow());
+        if(file!=null)
+            model.setOutPath(file);
     }
 }

@@ -55,16 +55,10 @@ public class FlacCodec implements PCMProcessor {
             }
         }
     }
-    public void encode(String inFileName) throws IOException{
+    public void encode(String inFileName, String outFileName) throws IOException{
         File input=new File(inFileName);
-        OutputStream os=null;
-        String tmpFolder=System.getProperty("user.dir")+"/tmp";
-        String tmpOut=FilenameUtils.removeExtension(FilenameUtils.getName(inFileName))+".flac";
-        File output=new File(tmpFolder+"/"+tmpOut);
+        File output=new File(outFileName);
         try{
-
-           // os=new FLACOutputStream(tmpFolder+"/"+tmpOut);
-            //FLACEncoder encoder=new FLACEncoder();
             FLAC_FileEncoder encoder=new FLAC_FileEncoder();
             encoder.encode(input,output);
         }catch (Exception e){
@@ -87,7 +81,6 @@ public class FlacCodec implements PCMProcessor {
     /**
      * Process the decoded PCM bytes.
      * @param pcm The decoded PCM data
-     * @see org.jflac.PCMProcessor#processPCM(org.jflac.util.ByteSpace)
      */
     public void processPCM(ByteData pcm) {
         try {

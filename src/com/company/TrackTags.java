@@ -12,7 +12,6 @@ public class TrackTags {
     public String Songwriter=null;
     public float CutPoint=0;
     public String ISRC=null;
-    public boolean finished=false;
     public final StringProperty title() {
         StringProperty s = new SimpleStringProperty();
         s.set(this.Title);

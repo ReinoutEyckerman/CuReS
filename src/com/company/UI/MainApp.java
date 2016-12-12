@@ -64,13 +64,15 @@ public class MainApp extends Application{
             root.setTop(menuloader.load());
 
             MenuController menuController=menuloader.getController();
+
             Image image=new Image(getClass().getResourceAsStream("menu/icons/file.png"), 25,25, false,false);
             menuController.openFile.setGraphic(new ImageView(image));
-
             image=new Image(getClass().getResourceAsStream("menu/icons/delete.png"), 25,25, false,false);
             menuController.removeFile.setGraphic(new ImageView(image));
             image=new Image(getClass().getResourceAsStream("menu/icons/start.png"), 25,25, false,false);
             menuController.start.setGraphic(new ImageView(image));
+            image=new Image(getClass().getResourceAsStream("menu/icons/folder.png"), 25,25, false,false);
+            menuController.outpath.setGraphic(new ImageView(image));
 
             FXMLLoader rootloader=new FXMLLoader(getClass().getResource("Overview.fxml"));
             root.setCenter(rootloader.load());
