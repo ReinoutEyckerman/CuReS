@@ -1,14 +1,24 @@
 package com.company;
 
+import javafx.scene.control.ProgressBar;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 
 /**
  * Created by reinout on 11/11/16.
  */
-public class Processor {
-    public void Process(String cuePath){
+public class Processor implements Runnable{
+    private final File cuePath;
+    private final ProgressBar progressBar;
+
+    public Processor(File cuePath, ProgressBar progressBar) {
+        this.cuePath = cuePath;
+        this.progressBar = progressBar;
+    }
+
+    @Override
+    public void run(){
         CueSplitter cueSplitter=new CueSplitter(cuePath);
         FlacCodec codec = new FlacCodec();
         WavSplitter wavSplitter=new WavSplitter();

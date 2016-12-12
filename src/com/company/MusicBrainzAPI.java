@@ -1,7 +1,6 @@
 package com.company;
 
 
-import org.json.simple.JSONObject;
 import org.musicbrainz.controller.Artist;
 import org.musicbrainz.controller.Controller;
 import org.musicbrainz.model.searchresult.ArtistResultWs2;
