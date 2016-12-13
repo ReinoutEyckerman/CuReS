@@ -9,6 +9,11 @@ import java.io.*;
  * Created by reinout on 11/9/16.
  */
 public class WavSplitter {
+    /**
+     * Splits the .wav files into multiple files and saves them in the ./tmp folder.
+     * @param metadata The album Metadata
+     * @param progressBar For updating the progressbar
+     */
     public void Split(AlbumTags metadata, ProgressBar progressBar){
         try {
             File in=new File(System.getProperty("user.dir")+"/tmp/"+FilenameUtils.removeExtension(FilenameUtils.getName(metadata.FileLocation))+".wav");

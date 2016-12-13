@@ -5,6 +5,7 @@ import com.company.CueSplitter;
 import com.company.Processor;
 import com.company.TrackTags;
 import com.company.UI.CueGridController;
+import javafx.application.Platform;
 import javafx.beans.Observable;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
@@ -19,6 +20,7 @@ import javafx.scene.layout.Pane;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.RunnableFuture;
 
 public class DataModel {
 
@@ -37,14 +39,23 @@ public class DataModel {
         for(int i=0; i<cueFiles.size(); i++){
             Processor p= new Processor(cueFiles.get(i), controllers.get(i).progress);
             p.SetOutpath(outPath);
-            Thread t=new Thread(p);
+            Thread t=new Thread(new Runnable() {
+                public void run(){
+                    int i=p.run();
+                    if (i!=0)
+                        return;
+                    Platform.runLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                            alert.setContentText("Your audio files have been split.");
+                            alert.showAndWait();
+                        }
+                    });
+                }
+            });
             t.start();
         }
-        //TODO How to put it after thread with some non blocking join?
-        Alert alert=new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Finished");
-        alert.setContentText("Your audio files have been split.");
-        alert.showAndWait();
     }
     public void addCue(File cueFile){
         cueFiles.add(cueFile);

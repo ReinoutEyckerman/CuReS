@@ -73,11 +73,13 @@ public class MainApp extends Application{
             menuController.start.setGraphic(new ImageView(image));
             image=new Image(getClass().getResourceAsStream("menu/icons/folder.png"), 25,25, false,false);
             menuController.outpath.setGraphic(new ImageView(image));
+            image=new Image(getClass().getResourceAsStream("menu/icons/save.png"), 25,25, false,false);
+            menuController.saveButton.setGraphic(new ImageView(image));
 
             FXMLLoader rootloader=new FXMLLoader(getClass().getResource("Overview.fxml"));
             root.setCenter(rootloader.load());
             OverviewController overviewController=rootloader.getController();
-            menuController.addListView(overviewController.listView, overviewController.controllers);
+            menuController.addListView(overviewController.listView, overviewController.controllers, overviewController.cuesheet);
             DataModel model=new DataModel();
             overviewController.initModel(model);
             menuController.initModel(model);

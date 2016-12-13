@@ -37,14 +37,6 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab text="Tagger">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <ComboBox layoutX="202.0" layoutY="1.0" prefWidth="150.0" promptText="&lt;Empty&gt;" />
-                     </children></AnchorPane>
-              </content>
-            </Tab>
         </tabs>
       </TabPane>
    </children>

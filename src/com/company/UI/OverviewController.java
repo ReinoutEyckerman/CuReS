@@ -17,12 +17,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Created by reinout on 11/19/16.
@@ -48,7 +46,18 @@ public class OverviewController {
                 while(c.next()){
                     if(!c.wasUpdated()){
                         for(File f:c.getAddedSubList()){
-                            //TODO Hmn?
+                            try {
+                                Scanner s = new Scanner(f);
+                                while(s.hasNext()){
+                                    if (s.hasNextInt()) { // check if next token is an int
+                                        cuesheet.appendText(s.nextInt() + " "); // display the found integer
+                                    } else {
+                                        cuesheet.appendText(s.nextLine() + '\n'); // else read the next token
+                                    }
+                                }
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            }
                         }
                     }
                 }
