@@ -3,29 +3,19 @@ package com.company.UI.model;
 import com.company.AlbumTags;
 import com.company.CueSplitter;
 import com.company.Processor;
-import com.company.TrackTags;
 import com.company.UI.CueGridController;
 import javafx.application.Platform;
-import javafx.beans.Observable;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ListView;
-import javafx.scene.layout.Pane;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.RunnableFuture;
 
 public class DataModel {
 
     //private final ObservableList<TrackTags> fileList = FXCollections.observableArrayList(track -> new Observable[] {track.title(), track.performer()});
-    public ObservableList<AlbumTags> fileList = FXCollections.observableArrayList();
+    private ObservableList<AlbumTags> fileList = FXCollections.observableArrayList();
 
     public ObservableList<AlbumTags> getTrackList() {return fileList;}
 
@@ -39,20 +29,15 @@ public class DataModel {
         for(int i=0; i<cueFiles.size(); i++){
             Processor p= new Processor(cueFiles.get(i), controllers.get(i).progress);
             p.SetOutpath(outPath);
-            Thread t=new Thread(new Runnable() {
-                public void run(){
-                    int i=p.run();
-                    if (i!=0)
-                        return;
-                    Platform.runLater(new Runnable() {
-                        @Override
-                        public void run() {
-                            Alert alert=new Alert(Alert.AlertType.INFORMATION);
-                            alert.setContentText("Your audio files have been split.");
-                            alert.showAndWait();
-                        }
-                    });
-                }
+            Thread t=new Thread(() -> {
+                int x =p.run();
+                if (x !=0)
+                    return;
+                Platform.runLater(() -> {
+                    Alert alert=new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("Your audio files have been split.");
+                    alert.showAndWait();
+                });
             });
             t.start();
         }

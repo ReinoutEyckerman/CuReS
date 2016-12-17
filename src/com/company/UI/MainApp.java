@@ -13,8 +13,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.IOException;
 
-import static javafx.application.Application.launch;
-
 /**
  * Created by reinout on 11/19/16.
  */
@@ -27,20 +25,10 @@ public class MainApp extends Application{
     private Stage primaryStage;
 
     /**
-     * The data as an observable list of Persons.
-     */
-
-    /**
      * Constructor
      */
     public MainApp() {
-        // Add some sample data
     }
-
-    /**
-     * Returns the data as an observable list of Persons.
-     * @return
-     */
 
     @Override
     public void start(Stage primaryStage) {
@@ -58,6 +46,12 @@ public class MainApp extends Application{
      */
     public void initRootLayout() {
         try {
+            /*
+            Thread t=new Thread(() -> {
+                MusicBrainzAPI api=new MusicBrainzAPI();
+                api.GetMetadata();
+            });
+            t.start();*/
             // Load root layout from fxml file.
             BorderPane root= new BorderPane();
             FXMLLoader menuloader = new FXMLLoader(getClass().getResource("menu/menu.fxml"));

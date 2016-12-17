@@ -1,26 +1,21 @@
 package com.company.UI;
 
 import com.company.AlbumTags;
-import com.company.TrackTags;
 import com.company.UI.model.DataModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.control.*;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 /**
  * Created by reinout on 11/19/16.
@@ -74,20 +69,11 @@ public class OverviewController {
                     }
             }
         });
-        cueRepairTab.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if(newValue){
-//TODO Vragen hoe te verbinden met menucontroller
-                }
-            }
-        });
     }
 
     private void addAlbum(AlbumTags album){
         FXMLLoader paneLoader = new FXMLLoader(getClass().getResource("CueGrid.fxml"));
         try {
-            //cuesheet.setText();
             Pane p=paneLoader.load();
             CueGridController controller=paneLoader.getController();
             controller.artist.setText(album.Performer);

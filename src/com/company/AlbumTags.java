@@ -6,6 +6,7 @@ import java.util.List;
 /**
  * Created by reinout on 11/10/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class AlbumTags {
     public String Title=null;
     public String Performer=null;
@@ -15,12 +16,14 @@ public class AlbumTags {
     public String DiscID=null;
     public String Comment=null;
     public String Catalog=null;
-    public String FileLocation=null;
+    public List<String> FileLocation=null;
 
     public List<TrackTags> tracks=null;
     public AlbumTags(){
-        this.tracks=new ArrayList<TrackTags>();
+        this.tracks= new ArrayList<>();
+        this.FileLocation=new ArrayList<>();
     }
+
     public void Clean(){
         if(Title!=null)
             Title = Title.replaceAll("^\"+", "").replaceAll("\"+$", "");
@@ -39,7 +42,9 @@ public class AlbumTags {
         if(Catalog!=null)
             Catalog=Catalog.replaceAll("^\"+", "").replaceAll("\"+$", "");
         if(FileLocation!=null)
-            FileLocation=FileLocation.replaceAll("^\"+", "").replaceAll("\"+$", "");
+            for (String s :FileLocation) {
+                s=s.replaceAll("^\"+", "").replaceAll("\"+$", "");
+            }
         tracks.forEach(TrackTags::Clean);
     }
 }

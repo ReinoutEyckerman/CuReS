@@ -1,11 +1,5 @@
 package com.company.UI.menu;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
 import com.company.UI.CueGridController;
 import com.company.UI.model.DataModel;
 import javafx.event.ActionEvent;
@@ -14,7 +8,11 @@ import javafx.scene.control.*;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
-import static java.lang.System.out;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 public class MenuController {
 
@@ -41,12 +39,6 @@ public class MenuController {
         this.listview=list;
         this.controllers=controllers;
         this.cueSheet=cuesheet;
-    }
-    @FXML
-    public void save() {
-
-        // similar to load...
-
     }
 
     @FXML
@@ -86,13 +78,8 @@ public class MenuController {
             fw = new FileWriter(model.cueFiles.get(model.cueFiles.size()-1));
             PrintWriter out = new PrintWriter(fw);
             out.write(cueSheet.getText());
-            //Flush the output to the file
             out.flush();
-
-            //Close the Print Writer
             out.close();
-
-            //Close the File Writer
             fw.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -9,36 +9,41 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.company.UI.menu.MenuController">
-    <children>
-        <StackPane>
-            <MenuBar fx:id="menuBar">
-                <Menu text="File">
-                    <MenuItem onAction="#loadcue" text="Load Cue" />
-                    <MenuItem onAction="#setOutpath" text="Set Output Path" />
-                    <MenuItem onAction="#save" text="Save" />
-                    <SeparatorMenuItem />
-                    <MenuItem onAction="#exit" text="Quit" />
-                </Menu>
-                <Menu mnemonicParsing="false" text="Convert">
-                    <items>
-                        <MenuItem fx:id="convert" mnemonicParsing="false" onAction="#convertcue" text="Split" />
-                    </items>
-                </Menu>
-            </MenuBar>
-        </StackPane>
-        <StackPane prefHeight="40.0">
-            <children>
-                <ButtonBar prefHeight="26.0" prefWidth="275.0">
-                    <buttons>
-                        <Button fx:id="saveButton" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#saveCue" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT" />
-                        <Button fx:id="openFile" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#loadcue" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT" />
-                        <Button fx:id="removeFile" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#removeEntry" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT" />
-                        <Button fx:id="outpath" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#setOutpath" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT" />
-                        <Button fx:id="start" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0" mnemonicParsing="false" onAction="#convertcue" prefHeight="30.0" prefWidth="30.0" style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT" />
-                    </buttons>
-                </ButtonBar>
-            </children>
-        </StackPane>
-    </children>
+<VBox xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="com.company.UI.menu.MenuController">
+    <StackPane>
+        <MenuBar fx:id="menuBar">
+            <Menu text="File">
+                <MenuItem onAction="#loadcue" text="Load Cue"/>
+                <MenuItem onAction="#setOutpath" text="Set Output Path"/>
+                <MenuItem onAction="#saveCue" text="Save"/>
+                <SeparatorMenuItem/>
+                <MenuItem onAction="#exit" text="Quit"/>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Convert">
+                <MenuItem fx:id="convert" mnemonicParsing="false" onAction="#convertcue" text="Split"/>
+            </Menu>
+        </MenuBar>
+    </StackPane>
+    <StackPane prefHeight="40.0">
+        <ButtonBar prefHeight="26.0" prefWidth="275.0">
+            <buttons>
+                <Button fx:id="saveButton" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0"
+                        mnemonicParsing="false" onAction="#saveCue" prefHeight="30.0" prefWidth="30.0"
+                        style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT"/>
+                <Button fx:id="openFile" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0"
+                        mnemonicParsing="false" onAction="#loadcue" prefHeight="30.0" prefWidth="30.0"
+                        style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT"/>
+                <Button fx:id="removeFile" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0"
+                        mnemonicParsing="false" onAction="#removeEntry" prefHeight="30.0" prefWidth="30.0"
+                        style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT"/>
+                <Button fx:id="outpath" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0"
+                        mnemonicParsing="false" onAction="#setOutpath" prefHeight="30.0" prefWidth="30.0"
+                        style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT"/>
+                <Button fx:id="start" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0"
+                        mnemonicParsing="false" onAction="#convertcue" prefHeight="30.0" prefWidth="30.0"
+                        style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT"/>
+            </buttons>
+        </ButtonBar>
+    </StackPane>
 </VBox>
