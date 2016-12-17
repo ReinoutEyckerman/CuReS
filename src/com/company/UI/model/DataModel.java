@@ -23,7 +23,7 @@ public class DataModel {
 
     public ObservableList<File> cueFiles=FXCollections.observableArrayList();
     private File outPath=null;
-    private final ExecutorService pool= Executors.newFixedThreadPool(10);
+    private final ExecutorService pool= Executors.newFixedThreadPool(4);
 
 
     public void setOutPath(File outPath){
