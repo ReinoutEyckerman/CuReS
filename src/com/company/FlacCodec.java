@@ -1,19 +1,14 @@
 package com.company;
 
-import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
-import javafx.scene.control.ProgressBar;
-import net.sourceforge.javaflacencoder.FLACEncoder;
-import net.sourceforge.javaflacencoder.FLACOutputStream;
 import net.sourceforge.javaflacencoder.FLAC_FileEncoder;
 import org.apache.commons.io.FilenameUtils;
-import org.jflac.PCMProcessor;
 import org.jflac.FLACDecoder;
+import org.jflac.PCMProcessor;
 import org.jflac.metadata.StreamInfo;
 import org.jflac.util.ByteData;
 import org.jflac.util.WavWriter;
+
+import java.io.*;
 
 /**
  * Created by reinout on 11/9/16.
@@ -34,25 +29,19 @@ public class FlacCodec implements PCMProcessor {
         OutputStream os=null;
         try {
             is = new FileInputStream(inFileName);
-           // os = new ByteArrayOutputStream();
             os=new FileOutputStream(tmpFolder+"/"+tmpOut);
             wav = new WavWriter(os);
-
-            WavSplitter splitter = new WavSplitter();
             FLACDecoder decoder = new FLACDecoder(is);
             decoder.addPCMProcessor(this);
             decoder.decode();
-          //  splitter.Split(os, outFileName);
         }catch(Exception e)
         {
             e.printStackTrace();
         } finally {
-            if (is != null) {
+            if (is != null)
                 is.close();
-            }
-            if (os != null) {
+            if (os != null)
                 os.close();
-            }
         }
     }
     public void encode(String inFileName, String outFileName) throws IOException{
@@ -89,6 +78,5 @@ public class FlacCodec implements PCMProcessor {
             e.printStackTrace();
         }
     }
-
 }
 

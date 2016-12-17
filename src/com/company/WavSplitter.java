@@ -14,9 +14,9 @@ public class WavSplitter {
      * @param metadata The album Metadata
      * @param progressBar For updating the progressbar
      */
-    public void Split(AlbumTags metadata, ProgressBar progressBar){
+    public void Split(AlbumTags metadata, String location, ProgressBar progressBar){
         try {
-            File in=new File(System.getProperty("user.dir")+"/tmp/"+FilenameUtils.removeExtension(FilenameUtils.getName(metadata.FileLocation))+".wav");
+            File in=new File(System.getProperty("user.dir")+"/tmp/"+FilenameUtils.removeExtension(FilenameUtils.getName(location))+".wav");
             AudioInputStream stream = AudioSystem.getAudioInputStream(in);
             AudioFileFormat format= AudioSystem.getAudioFileFormat(in);
             float samplerate=format.getFormat().getSampleRate();

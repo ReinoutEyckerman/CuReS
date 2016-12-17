@@ -1,6 +1,5 @@
 package com.company;
 
-//import org.apache.commons.io.FilenameUtils;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -13,14 +12,14 @@ import java.util.regex.Pattern;
  * Created by reinout on 11/9/16.
  */
 public class CueSplitter {
-    AlbumTags metadata=new AlbumTags();
+    private AlbumTags metadata=new AlbumTags();
     private File cueFile=null;
     public CueSplitter(File cueFile){
         this.cueFile=cueFile;
     }
     public AlbumTags parseFile(){
         try {
-            List<String> records = new ArrayList<String>();
+            List<String> records = new ArrayList<>();
             String line=null;
             BufferedReader bufferedReader = null;
             bufferedReader = new BufferedReader(new FileReader(cueFile));
@@ -29,8 +28,6 @@ public class CueSplitter {
                 records.add(line);
             }
             ProcessCue(records);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +49,7 @@ public class CueSplitter {
                     if(!matcher.find())
                         throw new IllegalArgumentException("No filename");
                     String location=matcher.group(1);
-                    metadata.FileLocation=FilenameUtils.getFullPath(cueFile.getAbsolutePath())+location;
+                    metadata.FileLocation.add(FilenameUtils.getFullPath(cueFile.getAbsolutePath())+location);
                     i++;
                     i += fetchTrackMetadata(i, records);
                     break;

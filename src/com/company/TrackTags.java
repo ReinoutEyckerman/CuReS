@@ -17,11 +17,6 @@ public class TrackTags {
         s.set(this.Title);
         return s;
     }
-    public final StringProperty performer(){
-        StringProperty s= new SimpleStringProperty();
-        s.set(this.Performer);
-        return s;
-    }
 
     public void SetCutPoint(String s){
         s = s.replaceAll("^\"+", "").replaceAll("\"+$", "");
