@@ -98,7 +98,7 @@ public class CueSplitter {
         boolean newFile=false;
         String z=s.split(" ")[0].toUpperCase();
         if(!z.equals("TRACK"))
-            throw new IllegalArgumentException(" AYY LMAO WAT THE FOCK YOU SAID ABOUT ME YOU LITTLE SHIT");
+            throw new IllegalArgumentException("Error in the cue file.");
 
         while(!newFile&&count + state < records.size()){
             s=records.get(state+count).trim();
