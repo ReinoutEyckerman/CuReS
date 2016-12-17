@@ -24,7 +24,7 @@ public class AlbumTags {
         this.FileLocation=new ArrayList<>();
     }
 
-    public void Clean(){
+    public void clean(){
         if(Title!=null)
             Title = Title.replaceAll("^\"+", "").replaceAll("\"+$", "");
         if(Performer!=null)
@@ -45,6 +45,6 @@ public class AlbumTags {
             for (String s :FileLocation) {
                 s=s.replaceAll("^\"+", "").replaceAll("\"+$", "");
             }
-        tracks.forEach(TrackTags::Clean);
+        tracks.forEach(TrackTags::clean);
     }
 }

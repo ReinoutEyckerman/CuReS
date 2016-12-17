@@ -15,7 +15,7 @@ import java.io.*;
  */
 
 public class FlacCodec implements PCMProcessor {
-    private WavWriter wav;
+    private WavWriter wavWriter;
 
     /**
      * Decode a FLAC file to a WAV file.
@@ -30,7 +30,7 @@ public class FlacCodec implements PCMProcessor {
         try {
             is = new FileInputStream(inFileName);
             os=new FileOutputStream(tmpFolder+"/"+tmpOut);
-            wav = new WavWriter(os);
+            wavWriter = new WavWriter(os);
             FLACDecoder decoder = new FLACDecoder(is);
             decoder.addPCMProcessor(this);
             decoder.decode();
@@ -61,7 +61,7 @@ public class FlacCodec implements PCMProcessor {
      */
     public void processStreamInfo(StreamInfo info) {
         try {
-            wav.writeHeader(info);
+            wavWriter.writeHeader(info);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,7 +73,7 @@ public class FlacCodec implements PCMProcessor {
      */
     public void processPCM(ByteData pcm) {
         try {
-            wav.writePCM(pcm);
+            wavWriter.writePCM(pcm);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -14,7 +14,7 @@ import java.io.File;
 public class Vorbis implements AudioMetadata {
 
     @Override
-    public void WriteTagToFile(String fileLocation, AlbumTags metadata, int tracknr){
+    public void writeTagToFile(String fileLocation, AlbumTags metadata, int tracknr){
         try {
             TrackTags track=metadata.tracks.get(tracknr);
             AudioFile f = AudioFileIO.read(new File(fileLocation));

@@ -28,7 +28,7 @@ public class DataModel {
     public void convertCue(List<CueGridController> controllers){
         for(int i=0; i<cueFiles.size(); i++){
             Processor p= new Processor(cueFiles.get(i), controllers.get(i).progress);
-            p.SetOutpath(outPath);
+            p.setOutpath(outPath);
             Thread t=new Thread(() -> {
                 int x =p.run();
                 if (x !=0)

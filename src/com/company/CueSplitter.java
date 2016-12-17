@@ -86,7 +86,7 @@ public class CueSplitter {
                     break;
             }
         }
-        metadata.Clean();
+        metadata.clean();
     }
     private int fetchTrackMetadata(int state, List<String> records) {
         String s = records.get(state).trim();
@@ -102,7 +102,7 @@ public class CueSplitter {
             switch (s.split(" ")[0].toUpperCase()) {
                 case "INDEX":
                     if(s.split(" ")[1].equals("01"))
-                        tags.SetCutPoint(s.split(" ")[2]);
+                        tags.setCutPoint(s.split(" ")[2]);
                     else System.err.println("Error in index at line "+ count+state);
                     break;
                 case "TITLE":

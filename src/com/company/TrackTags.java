@@ -18,7 +18,7 @@ public class TrackTags {
         return s;
     }
 
-    public void SetCutPoint(String s){
+    public void setCutPoint(String s){
         s = s.replaceAll("^\"+", "").replaceAll("\"+$", "");
         String[] splitTime=s.split(":");
         if(splitTime[2]!=null&&splitTime[2].length()<3)
@@ -26,7 +26,7 @@ public class TrackTags {
         CutPoint=Float.parseFloat(splitTime[0])*60+Float.parseFloat(splitTime[1])+Float.parseFloat(splitTime[2])/1000;
 
     }
-    public void Clean() {
+    public void clean() {
         if (Title != null)
             Title = Title.replaceAll("^\"+", "").replaceAll("\"+$", "");
         if (Performer != null)

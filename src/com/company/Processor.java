@@ -10,18 +10,18 @@ import java.io.File;
 public class Processor {
     private final File cuePath;
     private final ProgressBar progressBar;
-    private File outpath=null;
+    private File outPath=null;
 
     public Processor(File cuePath, ProgressBar progressBar) {
         this.cuePath = cuePath;
         this.progressBar = progressBar;
     }
-    public void SetOutpath(File outpath){
-        this.outpath=outpath;
+    public void setOutpath(File outpath){
+        this.outPath=outpath;
     }
 
     public int run(){
-        if(outpath==null) {
+        if(outPath==null) {
             Platform.runLater(() -> {
                 Alert alert=new Alert(Alert.AlertType.WARNING);
                 alert.setContentText("Please select an output file.");
@@ -38,17 +38,17 @@ public class Processor {
             for(String location: metadata.FileLocation) {
                 codec.decode(location);
                 progressBar.setProgress(0.1);
-                wavSplitter.Split(metadata, location, progressBar);
+                wavSplitter.split(metadata, location, progressBar);
             }
             progressBar.setProgress(0.6);
             AudioMetadata tagger = new Vorbis();
-            File albumOutpath = new File(outpath.getAbsolutePath() + "/" + metadata.Title + "/");
+            File albumOutpath = new File(outPath.getAbsolutePath() + "/" + metadata.Title + "/");
             albumOutpath.mkdirs();
             for (int i = 0; i < metadata.tracks.size(); i++) {
                 String tmppath = System.getProperty("user.dir") + "/tmp/" + metadata.tracks.get(i).Title;
                 String path = albumOutpath + "/" + metadata.tracks.get(i).Title;
                 codec.encode(tmppath + ".wav", path + ".flac");
-                tagger.WriteTagToFile(path + ".flac", metadata, i);
+                tagger.writeTagToFile(path + ".flac", metadata, i);
                 progressBar.setProgress(0.6 + ((float) i / (float) metadata.tracks.size()) * 0.4);
             }
             progressBar.setProgress(1);

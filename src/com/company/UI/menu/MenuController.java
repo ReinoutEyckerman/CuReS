@@ -47,6 +47,7 @@ public class MenuController {
     }
 
     public void loadcue(ActionEvent actionEvent) {
+        cueSheet.clear();
         FileChooser chooser = new FileChooser();
         File file = chooser.showOpenDialog(menuBar.getScene().getWindow());
         if (file != null) {
@@ -84,6 +85,10 @@ public class MenuController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        listview.getItems().remove(listview.getItems().size()-1);
+        cueSheet.clear();
+        File f=model.cueFiles.get(model.cueFiles.size()-1);
+        model.addCue(f);
         Alert alert=new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Your cue file has been saved.");
         alert.showAndWait();
