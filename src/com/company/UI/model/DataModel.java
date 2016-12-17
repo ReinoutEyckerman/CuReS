@@ -11,6 +11,8 @@ import javafx.scene.control.Alert;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DataModel {
 
@@ -21,6 +23,8 @@ public class DataModel {
 
     public ObservableList<File> cueFiles=FXCollections.observableArrayList();
     private File outPath=null;
+    private final ExecutorService pool= Executors.newFixedThreadPool(10);
+
 
     public void setOutPath(File outPath){
         this.outPath=outPath;
@@ -39,7 +43,7 @@ public class DataModel {
                     alert.showAndWait();
                 });
             });
-            t.start();
+            pool.execute(t);
         }
     }
     public void addCue(File cueFile){
