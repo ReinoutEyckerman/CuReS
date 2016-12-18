@@ -30,6 +30,15 @@ public class DataModel {
         this.outPath=outPath;
     }
     public void convertCue(List<CueGridController> controllers){
+        if(cueFiles.size()==0)
+        {
+            Platform.runLater(() -> {
+                Alert alert=new Alert(Alert.AlertType.WARNING);
+                alert.setContentText("Please select an input file.");
+                alert.showAndWait();
+            });
+            return;
+        }
         for(int i=0; i<cueFiles.size(); i++){
             Processor p= new Processor(cueFiles.get(i), controllers.get(i).progress);
             p.setOutpath(outPath);

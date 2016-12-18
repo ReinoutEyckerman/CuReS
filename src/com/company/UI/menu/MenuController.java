@@ -93,4 +93,16 @@ public class MenuController {
         alert.setContentText("Your cue file has been saved.");
         alert.showAndWait();
     }
+
+    public void showHelp(ActionEvent actionEvent) {
+        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("First load in a .cue file. Edit it to your likings, then make sure to save it. Select an output folder, press the Convert button, and after a while it should be finished.");
+        alert.showAndWait();
+    }
+
+    public void showAbout(ActionEvent actionEvent) {
+        Alert alert=new Alert(Alert.AlertType.INFORMATION);
+        alert.setContentText("Software project made by Reinout Eyckerman.");
+        alert.showAndWait();
+    }
 }

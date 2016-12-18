@@ -23,16 +23,20 @@
             <Menu mnemonicParsing="false" text="Convert">
                 <MenuItem fx:id="convert" mnemonicParsing="false" onAction="#convertcue" text="Split"/>
             </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+                <MenuItem mnemonicParsing="false" onAction="#showHelp" text="Help"/>
+                <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About"/>
+            </Menu>
         </MenuBar>
     </StackPane>
     <StackPane prefHeight="40.0">
         <ButtonBar prefHeight="26.0" prefWidth="275.0">
             <buttons>
-                <Button fx:id="saveButton" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0"
-                        mnemonicParsing="false" onAction="#saveCue" prefHeight="30.0" prefWidth="30.0"
-                        style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT"/>
                 <Button fx:id="openFile" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0"
                         mnemonicParsing="false" onAction="#loadcue" prefHeight="30.0" prefWidth="30.0"
+                        style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT"/>
+                <Button fx:id="saveButton" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0"
+                        mnemonicParsing="false" onAction="#saveCue" prefHeight="30.0" prefWidth="30.0"
                         style="-fx-background-radius: 0;" ButtonBar.buttonData="LEFT"/>
                 <Button fx:id="removeFile" maxHeight="30.0" maxWidth="30.0" minHeight="30.0" minWidth="30.0"
                         mnemonicParsing="false" onAction="#removeEntry" prefHeight="30.0" prefWidth="30.0"

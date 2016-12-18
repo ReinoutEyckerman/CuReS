@@ -6,7 +6,6 @@ import java.util.List;
 /**
  * Created by reinout on 11/10/16.
  */
-@SuppressWarnings("DefaultFileTemplate")
 public class AlbumTags {
     public String Title=null;
     public String Performer=null;
