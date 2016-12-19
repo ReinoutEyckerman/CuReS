@@ -63,7 +63,7 @@ public class MenuController {
         int i=listview.getSelectionModel().getSelectedIndex();
         listview.getItems().remove(i);
         model.removeEntry(i);
-
+        cueSheet.clear();
     }
 
     public void setOutpath(ActionEvent actionEvent) {
@@ -76,12 +76,22 @@ public class MenuController {
     public void saveCue(ActionEvent actionEvent) {
         FileWriter fw = null;
         try {
-            fw = new FileWriter(model.cueFiles.get(model.cueFiles.size()-1));
-            PrintWriter out = new PrintWriter(fw);
-            out.write(cueSheet.getText());
-            out.flush();
-            out.close();
-            fw.close();
+            File file;
+            if(model.cueFiles.size()!=0) {
+                file=model.cueFiles.get(model.cueFiles.size()-1);
+            }
+            else {
+                FileChooser chooser = new FileChooser();
+                file = chooser.showOpenDialog(menuBar.getScene().getWindow());
+            }
+            if(file!=null) {
+                fw = new FileWriter(file);
+                PrintWriter out = new PrintWriter(fw);
+                out.write(cueSheet.getText());
+                out.flush();
+                out.close();
+                fw.close();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
