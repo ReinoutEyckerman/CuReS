@@ -23,7 +23,7 @@
             <Menu mnemonicParsing="false" text="Convert">
                 <MenuItem fx:id="convert" mnemonicParsing="false" onAction="#convertcue" text="Split"/>
             </Menu>
-            <Menu mnemonicParsing="false" text="help">
+            <Menu mnemonicParsing="false" text="Help">
                 <MenuItem mnemonicParsing="false" onAction="#showHelp" text="Help"/>
                 <MenuItem mnemonicParsing="false" onAction="#showAbout" text="About"/>
             </Menu>
