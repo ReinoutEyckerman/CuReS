@@ -35,7 +35,7 @@ public class MainApp extends Application{
         new File(System.getProperty("user.dir")+"/tmp").mkdirs();
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("CuReS");
-        this.primaryStage.setHeight(400);
+        this.primaryStage.setMinHeight(400);
         this.primaryStage.setWidth(600);
         this.primaryStage.setResizable(false);
         initRootLayout();

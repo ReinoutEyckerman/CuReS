@@ -98,6 +98,7 @@ public class MenuController {
         listview.getItems().remove(listview.getItems().size()-1);
         cueSheet.clear();
         File f=model.cueFiles.get(model.cueFiles.size()-1);
+        model.cueFiles.remove(f);
         model.addCue(f);
         Alert alert=new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("Your cue file has been saved.");
