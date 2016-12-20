@@ -12,11 +12,6 @@ public class TrackTags {
     public String Songwriter=null;
     public float CutPoint=0;
     public String ISRC=null;
-    public final StringProperty title() {
-        StringProperty s = new SimpleStringProperty();
-        s.set(this.Title);
-        return s;
-    }
 
     public void setCutPoint(String s){
         s = s.replaceAll("^\"+", "").replaceAll("\"+$", "");
