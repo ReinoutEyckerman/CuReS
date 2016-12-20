@@ -163,9 +163,9 @@ public class CueSplitter {
         return count;
     }
     private void addError(int line, String s){
-       errors.add("Line "+line+": "+s);
+       errors.add("Line "+(line+1)+": "+s);
     }
     private void addWarning(int line, String s){
-        warnings.add("Line "+ line+": "+s);
+        warnings.add("Line "+(line+1)+": "+s);
     }
 }
