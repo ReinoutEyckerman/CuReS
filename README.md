@@ -2,4 +2,4 @@
 
 Little tool for splitting .flac files based on .cue files.
 
-Might be rewritten in C++ in the future.
+Kept for legacy reasons, recommended to use "ftrvxmtrx/split2flac".
